@@ -189,7 +189,8 @@ class TestEmbeddingStore(unittest.TestCase):
         results = store.search("document", top_k=3)
         for r in results:
             self.assertIn("content", r)
-
+    0.6631	Có	Agent có thể tóm tắt rằng Fed mô tả thị trường lao động vẫn vững, việc làm chậm lại nhưng còn mạnh và thất nghiệp thấp
+5	What interest rate did the Fed set in December 2025?	fed_fomc_statement_2025_12_10.txt chứa mức 3-1/2 to 3-3/4 percent ở phần đầu tài liệu	0.8247	Có	Agent có thể trả lời rằng Fed đặt mức lãi suất mục tiêu ở 3-1/2 đến 3-3/4 percent vào tháng 12/2025
     def test_search_results_have_score_key(self):
         store = self._make_store()
         store.add_documents(self._make_docs(3))
