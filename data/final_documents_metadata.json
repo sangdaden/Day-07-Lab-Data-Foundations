@@ -1,0 +1,79 @@
+{
+  "domain": "Financial News & Economic Indicators",
+  "total_documents": 6,
+  "total_characters": 129751,
+  "data_quality": "100% Real Data from Official Government Sources",
+  "sources": [
+    "Bureau of Labor Statistics (BLS)",
+    "Federal Reserve"
+  ],
+  "categories": [
+    "inflation",
+    "employment",
+    "monetary_policy"
+  ],
+  "documents": [
+    {
+      "filename": "bls_cpi_december_2025.txt",
+      "source": "Bureau of Labor Statistics (BLS)",
+      "category": "inflation",
+      "indicators": [
+        "cpi",
+        "mom_change",
+        "yoy_change"
+      ],
+      "chars": 111283
+    },
+    {
+      "filename": "bls_employment_situation_march_2026.txt",
+      "source": "Bureau of Labor Statistics (BLS)",
+      "category": "employment",
+      "indicators": [
+        "unemployment_rate",
+        "nonfarm_payrolls",
+        "labor_force_participation"
+      ],
+      "chars": 7163
+    },
+    {
+      "filename": "fed_fomc_statement_2025_12_10.txt",
+      "source": "Federal Reserve",
+      "category": "monetary_policy",
+      "indicators": [
+        "interest_rates",
+        "federal_funds_rate"
+      ],
+      "chars": 2923
+    },
+    {
+      "filename": "fed_fomc_statement_2025_10_29.txt",
+      "source": "Federal Reserve",
+      "category": "monetary_policy",
+      "indicators": [
+        "interest_rates",
+        "federal_funds_rate"
+      ],
+      "chars": 2792
+    },
+    {
+      "filename": "fed_fomc_statement_2025_09_17.txt",
+      "source": "Federal Reserve",
+      "category": "monetary_policy",
+      "indicators": [
+        "interest_rates",
+        "federal_funds_rate"
+      ],
+      "chars": 2612
+    },
+    {
+      "filename": "fed_fomc_statement_2025_07_30.txt",
+      "source": "Federal Reserve",
+      "category": "monetary_policy",
+      "indicators": [
+        "interest_rates",
+        "federal_funds_rate"
+      ],
+      "chars": 2978
+    }
+  ]
+}

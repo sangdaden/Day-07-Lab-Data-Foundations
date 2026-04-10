@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import csv
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -28,20 +30,110 @@ SAMPLE_FILES = [
 ]
 
 
+def _infer_text_metadata(path: Path, content: str) -> dict[str, str]:
+    metadata: dict[str, str] = {"source": str(path), "extension": path.suffix.lower()}
+    stem = path.stem.lower()
+
+    if stem == "python_intro":
+        metadata.update({"lang": "en", "topic": "python"})
+    elif stem == "vector_store_notes":
+        metadata.update({"lang": "en", "topic": "vector-store"})
+    elif stem == "rag_system_design":
+        metadata.update({"lang": "en", "topic": "rag"})
+    elif stem == "customer_support_playbook":
+        metadata.update({"lang": "en", "topic": "support"})
+    elif stem == "chunking_experiment_report":
+        metadata.update({"lang": "en", "topic": "chunking"})
+    elif stem == "vi_retrieval_notes":
+        metadata.update({"lang": "vi", "topic": "retrieval"})
+
+    if stem.startswith("fed_fomc_statement_"):
+        metadata.update(
+            {
+                "lang": "en",
+                "topic": "monetary-policy",
+                "category": "monetary_policy",
+                "document_type": "government_press_release",
+                "type": "Statement",
+                "publisher": "Federal Reserve",
+            }
+        )
+        date_match = re.search(r"(\d{4})_(\d{2})_(\d{2})$", stem)
+        if date_match:
+            metadata["date"] = f"{date_match.group(1)}-{date_match.group(2)}-{date_match.group(3)}"
+
+    if stem.startswith("bls_cpi_"):
+        metadata.update(
+            {
+                "lang": "en",
+                "topic": "inflation",
+                "category": "inflation",
+                "document_type": "government_press_release",
+                "event_type": "CPI Report",
+                "publisher": "Bureau of Labor Statistics",
+            }
+        )
+
+    date_match = re.search(r"^Date:\s*(.+)$", content, flags=re.MULTILINE)
+    if date_match:
+        metadata["date"] = date_match.group(1).strip()
+
+    reference_match = re.search(r"^Reference Period:\s*(.+)$", content, flags=re.MULTILINE)
+    if reference_match:
+        metadata["reference_period"] = reference_match.group(1).strip()
+
+    rate_match = re.search(r"^Interest Rate:\s*(.+)$", content, flags=re.MULTILINE)
+    if rate_match:
+        metadata["interest_rate"] = rate_match.group(1).strip()
+
+    return metadata
+
+
 def load_documents_from_files(file_paths: list[str]) -> list[Document]:
     """Load documents from file paths for the manual demo."""
-    allowed_extensions = {".md", ".txt"}
+    allowed_extensions = {".md", ".txt", ".csv"}
     documents: list[Document] = []
 
     for raw_path in file_paths:
         path = Path(raw_path)
 
         if path.suffix.lower() not in allowed_extensions:
-            print(f"Skipping unsupported file type: {path} (allowed: .md, .txt)")
+            print(f"Skipping unsupported file type: {path} (allowed: .md, .txt, .csv)")
             continue
 
         if not path.exists() or not path.is_file():
             print(f"Skipping missing file: {path}")
+            continue
+
+        if path.suffix.lower() == ".csv":
+            with path.open("r", encoding="utf-8-sig", newline="") as handle:
+                reader = csv.DictReader(handle)
+                for index, row in enumerate(reader):
+                    cleaned_row = {
+                        key.strip(): str(value).strip()
+                        for key, value in row.items()
+                        if key and value and str(value).strip()
+                    }
+                    if not cleaned_row:
+                        continue
+
+                    metadata = {
+                        "source": str(path),
+                        "extension": path.suffix.lower(),
+                        "row_index": index,
+                    }
+                    for field_name in ("Date", "Type", "Reference_Period", "Event_Type"):
+                        if field_name in cleaned_row:
+                            metadata[field_name.lower()] = cleaned_row[field_name]
+
+                    content = " | ".join(f"{key}: {value}" for key, value in cleaned_row.items())
+                    documents.append(
+                        Document(
+                            id=f"{path.stem}_{index}",
+                            content=content,
+                            metadata=metadata,
+                        )
+                    )
             continue
 
         content = path.read_text(encoding="utf-8")
@@ -49,7 +141,7 @@ def load_documents_from_files(file_paths: list[str]) -> list[Document]:
             Document(
                 id=path.stem,
                 content=content,
-                metadata={"source": str(path), "extension": path.suffix.lower()},
+                metadata=_infer_text_metadata(path, content),
             )
         )
 
@@ -67,7 +159,7 @@ def run_manual_demo(question: str | None = None, sample_files: list[str] | None 
     query = question or "Summarize the key information from the loaded files."
 
     print("=== Manual File Test ===")
-    print("Accepted file types: .md, .txt")
+    print("Accepted file types: .md, .txt, .csv")
     print("Input file list:")
     for file_path in files:
         print(f"  - {file_path}")

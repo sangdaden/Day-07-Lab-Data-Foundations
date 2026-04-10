@@ -1,0 +1,61 @@
+{
+  "download_date": "2026-04-10 14:40:51",
+  "total_documents": 4,
+  "total_characters": 6044,
+  "sources": [
+    "FRED Instructions",
+    "Yahoo Finance Instructions",
+    "Financial News Sources Guide",
+    "SEC EDGAR Instructions"
+  ],
+  "documents": [
+    {
+      "filename": "fred_manual_instructions.txt",
+      "source": "FRED Instructions",
+      "chars": 1143,
+      "metadata": {
+        "category": "instructions",
+        "language": "en",
+        "document_type": "guide",
+        "date": "2026-04-10",
+        "source": "FRED"
+      }
+    },
+    {
+      "filename": "yahoo_finance_instructions.txt",
+      "source": "Yahoo Finance Instructions",
+      "chars": 918,
+      "metadata": {
+        "category": "instructions",
+        "language": "en",
+        "document_type": "guide",
+        "date": "2026-04-10",
+        "source": "Yahoo Finance"
+      }
+    },
+    {
+      "filename": "sec_edgar_instructions.txt",
+      "source": "SEC EDGAR Instructions",
+      "chars": 1322,
+      "metadata": {
+        "category": "instructions",
+        "language": "en",
+        "document_type": "guide",
+        "date": "2026-04-10",
+        "source": "SEC EDGAR"
+      }
+    },
+    {
+      "filename": "financial_news_sources.txt",
+      "source": "Financial News Sources Guide",
+      "chars": 2661,
+      "metadata": {
+        "category": "instructions",
+        "language": "en",
+        "document_type": "guide",
+        "date": "2026-04-10",
+        "source": "Multiple"
+      }
+    }
+  ]
+}

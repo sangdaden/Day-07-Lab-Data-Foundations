@@ -1,0 +1,158 @@
+{
+  "domain": "Financial News & Economic Indicators",
+  "total_documents": 6,
+  "total_characters": 15106,
+  "data_quality": "100% Real Data from Verified Sources",
+  "sources": [
+    "SEC EDGAR",
+    "Bureau of Labor Statistics (BLS)",
+    "Yahoo Finance",
+    "Federal Reserve Economic Data (FRED)",
+    "Multiple Financial News Sources"
+  ],
+  "categories": [
+    "inflation",
+    "instructions",
+    "employment"
+  ],
+  "documents": [
+    {
+      "filename": "bls_employment_situation_2024_01.txt",
+      "source": "Bureau of Labor Statistics (BLS)",
+      "category": "employment",
+      "data_quality": "Official Government Data",
+      "indicators": [
+        "nonfarm_payrolls",
+        "unemployment_rate",
+        "labor_force_participation",
+        "wage_growth"
+      ],
+      "chars": 3968
+    },
+    {
+      "filename": "bls_consumer_price_index_2023_12.txt",
+      "source": "Bureau of Labor Statistics (BLS)",
+      "category": "inflation",
+      "data_quality": "Official Government Data",
+      "indicators": [
+        "cpi",
+        "core_cpi",
+        "food_inflation",
+        "energy_inflation",
+        "shelter_costs"
+      ],
+      "chars": 5094
+    },
+    {
+      "filename": "fred_manual_instructions.txt",
+      "source": "Federal Reserve Economic Data (FRED)",
+      "category": "instructions",
+      "data_quality": "Download Guide",
+      "indicators": [
+        "economic_indicators"
+      ],
+      "chars": 1143
+    },
+    {
+      "filename": "yahoo_finance_instructions.txt",
+      "source": "Yahoo Finance",
+      "category": "instructions",
+      "data_quality": "Download Guide",
+      "indicators": [
+        "market_data"
+      ],
+      "chars": 918
+    },
+    {
+      "filename": "sec_edgar_instructions.txt",
+      "source": "SEC EDGAR",
+      "category": "instructions",
+      "data_quality": "Download Guide",
+      "indicators": [
+        "company_financials"
+      ],
+      "chars": 1322
+    },
+    {
+      "filename": "financial_news_sources.txt",
+      "source": "Multiple Financial News Sources",
+      "category": "instructions",
+      "data_quality": "Download Guide",
+      "indicators": [
+        "financial_news"
+      ],
+      "chars": 2661
+    }
+  ],
+  "metadata_schema": {
+    "required_fields": [
+      "category",
+      "language",
+      "document_type",
+      "date",
+      "source"
+    ],
+    "optional_fields": [
+      "indicators",
+      "data_quality",
+      "sentiment"
+    ],
+    "field_definitions": {
+      "category": {
+        "type": "string",
+        "allowed_values": [
+          "employment",
+          "inflation",
+          "monetary_policy",
+          "economic_growth",
+          "market_data",
+          "instructions"
+        ]
+      },
+      "language": {
+        "type": "string",
+        "allowed_values": [
+          "en"
+        ]
+      },
+      "document_type": {
+        "type": "string",
+        "allowed_values": [
+          "government_press_release",
+          "time_series_data",
+          "guide",
+          "news_article"
+        ]
+      },
+      "source": {
+        "type": "string",
+        "examples": [
+          "BLS",
+          "FRED",
+          "Yahoo Finance",
+          "SEC EDGAR",
+          "Reuters",
+          "Bloomberg"
+        ]
+      },
+      "indicators": {
+        "type": "array",
+        "examples": [
+          "nonfarm_payrolls",
+          "unemployment_rate",
+          "cpi",
+          "gdp",
+          "interest_rates"
+        ]
+      },
+      "data_quality": {
+        "type": "string",
+        "allowed_values": [
+          "official_government_data",
+          "verified_market_data",
+          "download_guide"
+        ]
+      }
+    }
+  }
+}

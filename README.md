@@ -196,8 +196,7 @@ Khi chạy benchmark, đừng chỉ hỏi **"code có chạy không?"** mà hãy
 3. **Metadata Utility**
    - `search_with_filter()` có giúp tăng độ chính xác không?
    - Filter có quá chặt, làm mất kết quả tốt không?
-
-4. **Grounding Quality**
+- Nếu bật `ChromaDB`, backend vector database có ổn định hơn in-memory trong demo không?
    - Câu trả lời của agent có thật sự dựa trên retrieved context không?
    - Có thể chỉ ra chunk nào hỗ trợ câu trả lời không?
 
@@ -233,3 +232,22 @@ Xem chi tiết tại `docs/SCORING.md`. Tóm tắt:
 ```bash
 pytest tests/ -v
 ```
+
+---
+
+## Streamlit UI — So Sánh Strategy & Benchmark
+
+Sau khi cài dependencies, bạn có thể mở giao diện trực quan để:
+- so sánh `FixedSizeChunker`, `SentenceChunker`, `RecursiveChunker`
+- chạy truy vấn retrieval trên nhiều bộ dữ liệu
+- benchmark nhanh trên **sample corpus** hoặc **financial validation corpus**
+
+```bash
+streamlit run streamlit_app.py
+```
+
+Giao diện này hỗ trợ:
+- chọn file trong `data/`
+- xem thống kê chunking
+- so sánh top-k retrieval giữa các strategy
+- xem benchmark summary và chi tiết theo từng strategy
