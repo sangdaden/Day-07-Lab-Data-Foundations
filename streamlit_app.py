@@ -39,10 +39,10 @@ STRATEGIES = [
 ]
 
 STRATEGY_LABELS = {
-    "Raw documents": "Không chia nhỏ",
-    "FixedSizeChunker": "Chia đoạn cố định",
-    "SentenceChunker": "Chia theo câu",
-    "RecursiveChunker": "Chia đệ quy",
+    "Raw documents": "Raw documents (không chia nhỏ)",
+    "FixedSizeChunker": "FixedSizeChunker (chia đoạn cố định)",
+    "SentenceChunker": "SentenceChunker (chia theo câu)",
+    "RecursiveChunker": "RecursiveChunker (chia đệ quy)",
 }
 
 QUERY_OPTIONS = [
